@@ -46,6 +46,16 @@ else ifeq ($(STDCLIB),nospec)
 ### Handle cases no specs configs are passed
 COMMON_FLAGS +=
 ###
+else ifneq ($(findstring mculib,$(STDCLIB)),)
+### Handle cases when STDCLIB variable has mculib in it
+ifeq ($(STDCLIB),mculib)
+LDLIBS += -lc -lclang_rt.builtins
+STDCLIB_LDFLAGS += -u _printf_float
+else ifeq ($(STDCLIB),mculib_small)
+LDLIBS += -lc_small -lclang_rt.builtins
+STDCLIB_LDFLAGS += -u _printf_float
+endif
+###
 else
 LDLIBS += -lc_nano -lclang_rt.builtins
 STDCLIB_LDFLAGS += -u _printf_float

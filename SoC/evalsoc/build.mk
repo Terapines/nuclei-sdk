@@ -223,6 +223,10 @@ C_SRCDIRS += $(NUCLEI_SDK_SOC_COMMON)/Source $(NUCLEI_SDK_SOC_COMMON)/Source/Dri
 ifeq ($(SEMIHOST),)
 ifneq ($(findstring newlib,$(STDCLIB)),)
 C_SRCDIRS += $(NUCLEI_SDK_SOC_COMMON)/Source/Stubs/newlib
+else ifneq ($(findstring picolib,$(STDCLIB)),)
+C_SRCDIRS += $(NUCLEI_SDK_SOC_COMMON)/Source/Stubs/picolibc
+else ifneq ($(findstring mculib,$(STDCLIB)),)
+C_SRCDIRS += $(NUCLEI_SDK_SOC_COMMON)/Source/Stubs/picolibc
 else
 # no stubs will be used
 endif
